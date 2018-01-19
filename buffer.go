@@ -47,8 +47,7 @@ func produce(outC chan [lotLen]int) {
 			lot[j] = c
 			c++
 		}
-		r := rand.Int31n(15)
-		time.Sleep(time.Duration(r) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(15)) * time.Millisecond)
 		outC <- lot
 	}
 	close(outC)
@@ -57,8 +56,7 @@ func produce(outC chan [lotLen]int) {
 // The consumer is held up for a random amount of time as it processes each lot.
 func consume(inC chan [lotLen]int, ctrlC chan bool) {
 	for c := range inC {
-		r := rand.Int31n(100)
-		time.Sleep(time.Duration(r) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
 		fmt.Println(c)
 	}
 	ctrlC <- true // signal main
